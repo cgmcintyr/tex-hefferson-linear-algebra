@@ -23,6 +23,14 @@
 % Adds \pageref{LastPage} to reference last page of document.
 \usepackage{lastpage}
 
+% Loads amsmath and some very useful complements (pmatrix*)
+\usepackage{mathtools}
+
+% Systems of linear equations
+\usepackage{systeme}
+
+% Provides conditionals
+\usepackage{ifthen}
 
 % --------------------------------------------------------------------------- %
 % Configuration                                                               %
@@ -34,7 +42,7 @@
 \setlength{\parindent}{0mm}
 
 % enumitem - disable vertical seperators in lists
-\setlist{nosep}
+%\setlist{nosep}
 
 % fancyhdr - use fancy headers to add book's subsection and section title.
 \pagestyle{fancy}
@@ -44,14 +52,29 @@
 % fancyhdr, lastpage - set page footer to include numbering out of last page.
 \cfoot{Page \thepage\ of \pageref{LastPage}}
 
-
 % --------------------------------------------------------------------------- %
 % Macros/Environments                                                         %
 % --------------------------------------------------------------------------- %
 
-\newenvironment{quo}{\begin{framed}\begin{minipage}{0.97\textwidth}
+\newenvironment{problem}[1][default]{
+  \begin{framed}\begin{minipage}{0.97\textwidth}
   \setlength{\parskip}{4mm}
+  {\bf Problem #1}
 }{\end{minipage}\end{framed}}
+
+\newenvironment{abc}{\begin{enumerate}[label={\bf(\alph*)}]}{\end{enumerate}}
+
+% Create matrix
+% Usage: \m{a&b&c\\x&y&z} or \m[rr:r]{a&b&c\\x&y&z}
+\newcommand\m[2][]{
+	\ifthenelse{\equal {#1} {}}
+		% if
+		{\begin{pmatrix*}[r]#2\end{pmatrix*}}
+		% else
+		{\left(\begin{array}{#1}#2\end{array}\right)}
+}
+
+\newcommand\resetequation[1][1]{\setcounter{equation}{#1 - 1}}
 
 
 % --------------------------------------------------------------------------- %
@@ -60,21 +83,74 @@
 
 \begin{document}
 
-\begin{quo}
-  {\bf Problem 1.}
-  Find the indicated entry of the matrix, if it is defined.
-  $$ $$
-\end{quo}
+\begin{problem}[2.15]
+Find the indicated entry of the matrix, if it is defined.
+\[
+A = \m{1 &  3 & 1 \\ 2 & -1 & 4}
+\]
+\end{problem}
 
-\begin{enumerate}
-	\item $$ MATH $$
+\begin{enumerate}[label={\bf(\alph*)}]
+	\item $ a_{2,1} = 2 $
+	\item $ a_{1,2} = 3 $
+	\item $ a_{2,2} = -1 $
+	\item $ a_{3,1} = undefined $
 \end{enumerate}
 
-\begin{quo}
-  {\bf Problem 2.}
-  TODO
-\end{quo}
-TODO
 
+\begin{problem}[2.16]
+Give the size of each matrix.
+\[
+A = \m{ 1 &  3 & 1 \\ 2 & -1 & 4 }
+\]
+\end{problem}
+
+\begin{enumerate}[label=\bf(\alph*)]
+	\item $ \m{1 & 0 & 4 \\ 2 & 1 & 5} $ is a $ 2 \times 3 $ matrix.
+	\item $ \m{1 & 1 \\ -1 & 1 \\ 3 & -1} $ is a $ 3 \times 2 $ matrix.
+	\item $ \m{5 & 10 \\ 10 & 5} $ is a $ 2 \times 2 $ matrix.
+\end{enumerate}
+
+
+\begin{problem}[2.17]
+Perform the indicated vector operation, if it is defined.
+\end{problem}
+
+\begin{enumerate}[label=\bf(\alph*)]
+	\item $ \m{2 \\ 1 \\ 1} + \m{3 \\ 0 \\ 4} = \m{5 \\ 1 \\ 5} $
+	\item $ 5 \m{4 \\ -1} = \m{20 \\ -1} $
+	\item $ \m{1 \\ 5 \\ 1} - \m{3 \\ 1 \\ 1} = \m{-2 \\ 4 \\ 0} $
+	\item $ 7 \m{2 \\ 1} + 9 \m{3 \\ 5} = \m{14 \\ 7} + \m{21 \\ 45} = \m{35 \\ 52} $
+	\item $ \m{1 \\ 2} + \m{1 \\ 2 \\ 3} = undefined $
+	\item $ 6 \m{3 \\ 1 \\ 1} - 4 \m{2 \\ 0 \\ 3} + 2 \m{1 \\ 1 \\ 5} = \m{18 \\ 6 \\ 6} - \m{8 \\ 0 \\ 12} + \m{2 \\ 2 \\ 10} = \m{10 \\ 6 \\ -6} + \m{2 \\ 2 \\ 10} = \m{12 \\ 8 \\ 4} $
+\end{enumerate}
+
+
+\begin{problem}[2.18]
+Solve each system using matrix notation. Express the solution using vectors.
+\end{problem}
+
+\begin{abc}
+	\begin{item}
+	\resetequation
+	\begin{equation}
+		\sysdelim..\systeme{3x + 6y = 18, x + 2y = 6}
+	\end{equation}
+	\end{item}
+
+	As a matrix:
+	\begin{equation}
+		\m[rr|r]{3 & 6 & 18 \\ 1 & 2 & 6}
+	\end{equation}
+
+	Which can be reduced:
+	\begin{equation}
+		\m[rr|r]{3 & 6 & 18 \\ 1 & 2 & 6}
+		\xrightarrow{r_1 - 3r_2}
+		\m[rr|r]{0 & 0 & 0 \\ 1 & 2 & 6}
+		\xrightarrow{r_1 \leftrightarrow r_2}
+		\m[rr|r]{1 & 2 & 6 \\ 0 & 0 & 0}
+	\end{equation}
+\end{abc}
 
 \end{document}
