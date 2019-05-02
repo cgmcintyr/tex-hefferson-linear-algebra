@@ -1,0 +1,80 @@
+% Document for my solutions to Hefferson's Linear Algebra Chapter 1.I.2
+\documentclass[12pt]{article}
+
+% --------------------------------------------------------------------------- %
+% Packages                                                                    %
+% --------------------------------------------------------------------------- %
+
+% Customize page layout.
+\usepackage[hmargin=0.75in, vmargin=1in]{geometry}
+
+% Use T1 font encoding (see SE answer https://tex.stackexchange.com/a/677).
+\usepackage[T1]{fontenc}
+
+% Adds optional arg to enumerate to determine how counter is printed.
+\usepackage{enumitem}
+
+% Enable creating framed/bordered environments.
+\usepackage{framed}
+
+% Cutomize page headers
+\usepackage{fancyhdr}
+
+% Adds \pageref{LastPage} to reference last page of document.
+\usepackage{lastpage}
+
+
+% --------------------------------------------------------------------------- %
+% Configuration                                                               %
+% --------------------------------------------------------------------------- %
+
+% Reduce spacings/indents
+\setlength{\topskip}{0mm}
+\setlength{\parskip}{1ex}
+\setlength{\parindent}{0mm}
+
+% enumitem - disable vertical seperators in lists
+\setlist{nosep}
+
+% fancyhdr - use fancy headers to add book's subsection and section title.
+\pagestyle{fancy}
+\lhead{{\bf I.2. Describing The Solution Set}}
+\rhead{Chapter One: Solving Linear Systems}
+
+% fancyhdr, lastpage - set page footer to include numbering out of last page.
+\cfoot{Page \thepage\ of \pageref{LastPage}}
+
+
+% --------------------------------------------------------------------------- %
+% Macros/Environments                                                         %
+% --------------------------------------------------------------------------- %
+
+\newenvironment{quo}{\begin{framed}\begin{minipage}{0.97\textwidth}
+  \setlength{\parskip}{4mm}
+}{\end{minipage}\end{framed}}
+
+
+% --------------------------------------------------------------------------- %
+% Content                                                                     %
+% --------------------------------------------------------------------------- %
+
+\begin{document}
+
+\begin{quo}
+  {\bf Problem 1.}
+  Find the indicated entry of the matrix, if it is defined.
+  $$ $$
+\end{quo}
+
+\begin{enumerate}
+	\item $$ MATH $$
+\end{enumerate}
+
+\begin{quo}
+  {\bf Problem 2.}
+  TODO
+\end{quo}
+TODO
+
+
+\end{document}
