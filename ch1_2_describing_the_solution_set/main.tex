@@ -10,6 +10,7 @@
 
 % Use T1 font encoding (see SE answer https://tex.stackexchange.com/a/677).
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 
 % Adds optional arg to enumerate to determine how counter is printed.
 \usepackage{enumitem}
@@ -25,6 +26,7 @@
 
 % Loads amsmath and some very useful complements (pmatrix*)
 \usepackage{mathtools}
+\usepackage{amssymb, amsthm}
 
 % Systems of linear equations
 \usepackage{systeme}
@@ -48,6 +50,7 @@
 \pagestyle{fancy}
 \lhead{{\bf I.2. Describing The Solution Set}}
 \rhead{Chapter One: Solving Linear Systems}
+\setlength{\headheight}{16pt}
 
 % fancyhdr, lastpage - set page footer to include numbering out of last page.
 \cfoot{Page \thepage\ of \pageref{LastPage}}
@@ -131,19 +134,19 @@ Solve each system using matrix notation. Express the solution using vectors.
 \end{problem}
 
 \begin{abc}
+	% a
 	\begin{item}
 	\resetequation
 	\begin{equation}
 		\sysdelim..\systeme{3x + 6y = 18, x + 2y = 6}
 	\end{equation}
-	\end{item}
 
 	As a matrix:
 	\begin{equation}
 		\m[rr|r]{3 & 6 & 18 \\ 1 & 2 & 6}
 	\end{equation}
 
-	Which can be reduced:
+	Which can be reduced as follows:
 	\begin{equation}
 		\m[rr|r]{3 & 6 & 18 \\ 1 & 2 & 6}
 		\xrightarrow{r_1 - 3r_2}
@@ -151,6 +154,141 @@ Solve each system using matrix notation. Express the solution using vectors.
 		\xrightarrow{r_1 \leftrightarrow r_2}
 		\m[rr|r]{1 & 2 & 6 \\ 0 & 0 & 0}
 	\end{equation}
+
+	The solution set for this set of linear equations is:
+
+	\begin{equation}
+		\{ (x, y) \mid x + 2y = 6 \}
+	\end{equation}
+
+	As we only have one equation, the first variable $x$ is leading, and the
+	second variable $y$ is free. Therefore we can define $x$ in terms of $y$
+	$ x = 6 - 2y $, giving us the solutions set:
+
+	\begin{equation}
+		\{ ((6) - (2)y, y) \mid y \in \mathbb{R} \}
+	\end{equation}
+
+	Which can be rewritten using vectors by grouping together coefficients:
+
+	\begin{equation}
+		\{\m{-2 \\ 1}y + \m{6 \\ 0} \mid y \in \mathbb{R} \}
+	\end{equation}
+
+	An example solution from this set, when $y = 2$:
+
+	\begin{equation}
+		\vec{s} = \m{-2 \\ 1}2 + \m{6 \\ 0} = \m{-4 \\ 2} + \m{6 \\ 0} = \m{2 \\ 2}
+	\end{equation}
+
+	\end{item}
+
+	% b
+	\begin{item}
+	\resetequation
+	\begin{equation}
+		\sysdelim..\systeme{x + y = 1, x - y = -1}
+	\end{equation}
+
+	As a matrix:
+	\begin{equation}
+		\m[rr|r]{1 & 1 & 1 \\ 1 & -1 & -1}
+	\end{equation}
+
+	Which can be reduced as follows:
+	\begin{equation}
+		\m[rr|r]{1 & 1 & 1 \\ 1 & -1 & -1}
+		\xrightarrow{r_1 - r_2}
+		\m[rr|r]{0 & 2 & 2 \\ 1 & -1 & -1}
+		\xrightarrow{r_1 \leftrightarrow \frac{1}{2}r_2}
+		\m[rr|r]{1 & -1 & -1 \\ 0 & 1 & 1}
+	\end{equation}
+
+	Which gives us $y = 1$ and $x = 0$, so the solution set is:
+	\begin{equation}
+		\{ \m{0 \\ 1} \}
+	\end{equation}
+	\end{item}
+
+	% c
+	\begin{item}
+	\resetequation
+	\begin{equation}
+		\sysdelim..\systeme{x_1 + x_3 = 4, x_1 - x_2 + 2x_3 = 5, 4x_1 - x_2 + 5x_3 = 17}
+	\end{equation}
+
+	As a matrix:
+	\begin{equation}
+		\m[rrr|r]{1 & 0 & 1 & 4 \\ 1 & -1 & 2 & 5 \\ 4 & -1 & 5 & 17}
+	\end{equation}
+
+	Which can be reduced as follows:
+	\begin{equation*}
+	\begin{aligned}
+		\m[rrr|r]{1 & 0 & 1 & 4 \\ 1 & -1 & 2 & 5 \\ 4 & -1 & 5 & 17}
+		\xrightarrow{r_2 - r_1}
+		\m[rrr|r]{1 & 0 & 1 & 4 \\ 0 & -1 & 1 & 1 \\ 4 & -1 & 5 & 17}
+		\\
+		\xrightarrow{r_3 - 4r_1}
+		\m[rrr|r]{1 & 0 & 1 & 4 \\ 0 & -1 & 1 & 1 \\ 0 & -1 & 1 & 1}
+		\\
+		\xrightarrow{r_3 - r_2}
+		\m[rrr|r]{1 & 0 & 1 & 4 \\ 0 & -1 & 1 & 1 \\ 0 & 0 & 0 & 0}
+	\end{aligned}
+	\end{equation*}
+
+	This leaves us with $x_1$ and $x_2$ as leading variables, and $x_3$ as
+	a free variable. We can rewrite equation $r_1$ as $x_1 = 4 - x_3$ and
+	$r_2$ as $x_2 = x_3 - 1$, giving the solution set:
+
+	\begin{equation}
+		\{ (4 - x_3, x_3 - 1, x_3) \mid x_3 \in \mathbb{R} \}
+	\end{equation}
+
+	Written using vectors:
+	\begin{equation}
+		\{ \m{-1 \\ 1 \\ 1} x_3 + \m{4 \\ -1 \\ 0} \mid x_3 \in \mathbb{R} \}
+	\end{equation}
+	\end{item}
+
+	% d
+	\begin{item}
+	\resetequation
+	\begin{equation}
+		\sysdelim..\systeme{2a + b - c = 2, 2a + c = 3, a - b = 0}
+	\end{equation}
+
+	As a matrix:
+	\begin{equation}
+		\m[rrr|r]{2 & 1 & -1 & 2 \\ 2 & 0 & 1 & 3 \\ 1 & - 1 & 0 & 0}
+	\end{equation}
+
+	Which can be reduced as follows:
+	\begin{equation*}
+	\begin{aligned}
+		\m[rrr|r]{2 & 1 & -1 & 2 \\ 2 & 0 & 1 & 3 \\ 1 & - 1 & 0 & 0}
+		\xrightarrow{r_2 - 2r_3}
+		\m[rrr|r]{2 & 1 & -1 & 2 \\ 0 & 2 & 1 & 3 \\ 1 & - 1 & 0 & 0}
+		\\
+		\xrightarrow{r_1 - 2r_3}
+		\m[rrr|r]{0 & 3 & -1 & 2 \\ 0 & 2 & 1 & 3 \\ 1 & - 1 & 0 & 0}
+		\\
+		\xrightarrow{r_1 \leftrightarrow r_3}
+		\m[rrr|r]{1 & - 1 & 0 & 0 \\ 0 & 2 & 1 & 3 \\ 0 & 3 & -1 & 2}
+		\\
+		\xrightarrow{2r_3 - 3r_2}
+		\m[rrr|r]{ 1 & - 1 & 0 & 0 \\ 0 & 2 & 1 & 3 \\ 0 & 0 & -5 & -5}
+		\\
+		\xrightarrow{-1r_3}
+		\m[rrr|r]{ 1 & - 1 & 0 & 0 \\ 0 & 2 & 1 & 3 \\ 0 & 0 & 5 & 5}
+	\end{aligned}
+	\end{equation*}
+
+	This gives us $c = 1$, $b = 1$ and $c = 1$. The solution set for this is:
+	\begin{equation}
+		\{ \m{1 \\ 1 \\ 1} \}
+	\end{equation}
+	\end{item}
 \end{abc}
 
 \end{document}
