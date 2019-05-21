@@ -583,7 +583,77 @@ Solve each system using matrix notation. Express the solution using vectors.
 \end{abc}
 
 \begin{problem}[2.25]
-	Solve the following using Gauss' method
+	Using Gauss's Method
 \end{problem}
+
+
+\begin{abc}
+\resetequation
+\begin{item}
+	Solve the left-hand side of:
+	\begin{equation}
+		\sysdelim..\systeme{w + 2x - z = a, 2w + y = b, w + x + 2z = -2}
+	\end{equation}
+
+	As a matrix:
+	\begin{equation}
+	\begin{aligned}
+		\m[rrrr|r]{
+			1 & 2 & 0 & -1 & a \\
+			2 & 0 & 1 & 0 & b \\
+			1 & 1 & 0 & 2 & c
+		}
+		\xrightarrow{r_1 - r_3}
+		\m[rrrr|r]{
+			0 & 1 & 0 & -3 & a - c \\
+			2 & 0 & 1 & 0 & b \\
+			1 & 1 & 0 & 2 & c
+		}
+		\\
+		\xrightarrow{r_2 - 2r_3}
+		\m[rrrr|r]{
+			0 & 1 & 0 & -3 & a - c \\
+			0 & -2 & 1 & -4 & b - 2c \\
+			1 & 1 & 0 & 2 & c
+		}
+		\\
+		\xrightarrow{r_2 + 2r_1}
+		\m[rrrr|r]{
+			0 & 1 & 0 & -3 & a - c \\
+			0 & 0 & 1 & -10 & 2a + b - 4c \\
+			1 & 1 & 0 & 2 & c
+		}
+		\\
+		\xrightarrow{r_3 - r_1}
+		\m[rrrr|r]{
+			0 & 1 & 0 & -3 & a - c \\
+			0 & 0 & 1 & -10 & 2a + b - 4c \\
+			1 & 0 & 0 & 5 & -a + 2c
+		}
+	\end{aligned}
+	\end{equation}
+
+	Which gives us:
+
+	\begin{equation}
+	\begin{aligned}
+		w &= - a + 2c + -5z \\ % x
+		x &= a - c + 3z \\     % y
+		y &= 2a + b - 4c + 10z   % z
+	\end{aligned}
+	\end{equation}
+
+	Therefore our solution set is:
+
+	\begin{equation}
+	\begin{aligned}
+		\{ \m{-a + 2c \\ a - c \\ 2a + b - 4c \\ 0} + \m{-5 \\ 3 \\ 10 \\ 1}w \mid w \in \mathbb{R} \}
+	\end{aligned}
+	\end{equation}
+
+
+\end{item}
+\end{abc}
+
 
 \end{document}
