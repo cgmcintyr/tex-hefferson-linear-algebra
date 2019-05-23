@@ -1,0 +1,246 @@
+% Document for my solutions to Hefferson's Linear Algebra Chapter 1.I.2
+\documentclass[12pt]{article}
+
+% --------------------------------------------------------------------------- %
+% Packages                                                                    %
+% --------------------------------------------------------------------------- %
+
+% Customize page layout.
+\usepackage[hmargin=0.75in, vmargin=1in]{geometry}
+
+% Use T1 font encoding (see SE answer https://tex.stackexchange.com/a/677).
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% Adds optional arg to enumerate to determine how counter is printed.
+\usepackage{enumitem}
+
+% Enable creating framed/bordered environments.
+\usepackage{framed}
+
+% Cutomize page headers
+\usepackage{fancyhdr}
+
+% Adds \pageref{LastPage} to reference last page of document.
+\usepackage{lastpage}
+
+% Loads amsmath and some very useful complements (pmatrix*)
+\usepackage{mathtools}
+\usepackage{amssymb, amsthm}
+
+% Systems of linear equations
+\usepackage{systeme}
+
+% Provides conditionals
+\usepackage{ifthen}
+
+% Degrees
+\usepackage{textcomp}
+\usepackage{gensymb}
+
+
+% --------------------------------------------------------------------------- %
+% Configuration                                                               %
+% --------------------------------------------------------------------------- %
+
+% Reduce spacings/indents
+\setlength{\topskip}{0mm}
+\setlength{\parskip}{1ex}
+\setlength{\parindent}{0mm}
+
+% enumitem - disable vertical seperators in lists
+%\setlist{nosep}
+
+% fancyhdr - use fancy headers to add book's subsection and section title.
+\pagestyle{fancy}
+\lhead{{\bf II.2. Length and Angle Measures}}
+\rhead{Chapter One: Linear Systems}
+\setlength{\headheight}{16pt}
+
+% fancyhdr, lastpage - set page footer to include numbering out of last page.
+\cfoot{Page \thepage\ of \pageref{LastPage}}
+
+% --------------------------------------------------------------------------- %
+% Macros/Environments                                                         %
+% --------------------------------------------------------------------------- %
+
+\newenvironment{problem}[1][default]{
+  \begin{framed}\begin{minipage}{0.97\textwidth}
+  \setlength{\parskip}{4mm}
+  {\bf Problem #1}
+}{\end{minipage}\end{framed}}
+
+\newenvironment{abc}{\begin{enumerate}[label={\bf(\alph*)}]}{\end{enumerate}}
+
+% Create matrix
+% Usage: \m{a&b&c\\x&y&z} or \m[rr:r]{a&b&c\\x&y&z}
+\newcommand\m[2][]{
+	\ifthenelse{\equal {#1} {}}
+		% if
+		{\begin{pmatrix*}[r]#2\end{pmatrix*}}
+		% else
+		{\left(\begin{array}{#1}#2\end{array}\right)}
+}
+
+\newcommand\magnitude[1]{
+	\lvert{#1}\rvert
+}
+
+% Restyle vectors to be bold
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\newcommand\resetequation[1][1]{\setcounter{equation}{#1 - 1}}
+
+
+% --------------------------------------------------------------------------- %
+% Content                                                                     %
+% --------------------------------------------------------------------------- %
+
+\begin{document}
+
+
+\begin{problem}[2.11]
+	Find the length of each vector
+\end{problem}
+
+\begin{abc}
+\item{
+	\begin{equation*}
+	\begin{aligned}
+		\vec{a} &= \m{3 \\ 1} \\
+		\magnitude{\vec{a}} &= \sqrt{\magnitude{\vec{a}}^2} \\
+		                    &= \sqrt{\vec{a} \cdot \vec{a}} \\
+		                    &= \sqrt{3^2 + 1 ^2} \\
+		                    &= \sqrt{10}
+	\end{aligned}
+	\end{equation*}
+}
+
+\item{
+	\begin{equation*}
+	\begin{aligned}
+		\vec{b} &= \m{-1 \\ 2} \\
+		\magnitude{\vec{b}} &= \sqrt{-1^2 + 2^2} \\
+		                    &= \sqrt{5}
+	\end{aligned}
+	\end{equation*}
+}
+
+\item{
+	\begin{equation*}
+	\begin{aligned}
+		\vec{c} &= \m{4 \\ 1 \\ 1} \\
+		\magnitude{\vec{c}} &= \sqrt{4^2 + 1^2 + 1^2} \\
+		                    &= \sqrt{18}
+	\end{aligned}
+	\end{equation*}
+}
+
+\item{
+	\begin{equation*}
+	\begin{aligned}
+		\vec{d} &= \m{0 \\ 0 \\ 0} \\
+		\magnitude{\vec{c}} &= 0
+	\end{aligned}
+	\end{equation*}
+}
+\end{abc}
+
+\begin{problem}[2.12]
+	Find the angle between the following pairs of vectors.
+\end{problem}
+
+\begin{abc}
+\item{
+	\begin{equation*}
+	\begin{aligned}
+		\vec{a} &= \m{1 \\ 2} \quad \vec{b} = \m{1 \\ 4} \\
+		\theta_{a,b} &= arccos \left( \frac{\vec{a}\cdot\vec{b}}{\magnitude{\vec{a}} \magnitude{\vec{b}}} \right) \\
+		\vec{a} \cdot \vec{b} &= 1 \cdot 1 + 2 \cdot 4 = 9 \\
+		\magnitude{\vec{a}} &= \sqrt{\vec{a} \cdot \vec{a}} = \sqrt{5} \\
+		\magnitude{\vec{b}} &= \sqrt{\vec{b} \cdot \vec{b}} = \sqrt{17} \\
+		\theta_{a,b} &= arccos \left( \frac{9}{\sqrt{5} \cdot \sqrt{17}} \right) \\
+			     &\approx 0.22 \: \text{radians}
+	\end{aligned}
+	\end{equation*}
+}
+
+\item{
+	\begin{equation*}
+	\begin{aligned}
+		\vec{a} &= \m{1 \\ 2 \\ 0} \quad \vec{b} = \m{0 \\ 4 \\ 1} \\
+		\theta_{a,b} &= arccos \left( \frac{\vec{a}\cdot\vec{b}}{\magnitude{\vec{a}} \magnitude{\vec{b}}} \right) \\
+		\vec{a} \cdot \vec{b} &= 1 \cdot 0 + 2 \cdot 4 + 0 \cdot 1 = 8 \\
+		\magnitude{\vec{a}} &= \sqrt{\vec{a} \cdot \vec{a}} = \sqrt{5} \\
+		\magnitude{\vec{b}} &= \sqrt{\vec{b} \cdot \vec{b}} = \sqrt{17} \\
+		\theta_{a,b} &= arccos \left( \frac{8}{\sqrt{5} \cdot \sqrt{17}} \right) \\
+			     &\approx 0.52 \: \text{radians}
+	\end{aligned}
+	\end{equation*}
+}
+
+\item{
+	The angle between vectors of different sizes is not defined.
+
+	One would have to map the components of the lower dimension vector to the dimensions of the higher dimension vector, zeroing out the others.
+}
+\end{abc}
+
+\begin{problem}[2.13]
+	A ship moves 1.2 miles north, 6.1 miles 38 degrees east of south, 4.0 
+	miles at 89 degrees east of north, and 6.5 miles at 31 degrees east of north. 
+	Find the distance between the starting and ending positions (ignore the earth's 
+	curvature).
+\end{problem}
+
+Let positive $x$ values for vectors represent miles east, and negative $x$ values represent miles west.
+
+Let positive $y$ values for vectors represent miles north, and negative $y$ values represent miles south.
+
+The ship's movements can be described by four displacement vectors, $\vec{x_1}$, $\vec{x_2}$, $\vec{x_3}$, and $\vec{x_4}$.
+
+The first movement $\vec{x_1}$ is the simplest to calculate:
+
+\begin{equation}
+	\vec{x_1} = \m{0 \\ 1.2}
+\end{equation}
+
+The second movement described by $\vec{x_2}$ is 38 degrees east of south, which is a 
+-52 degree angle from the positive $x$ axis. Using trigonometry we find the $x$ 
+component of $\vec{x_2}$ is $6.1 \cdot cos(-52\degree)$, and the $y$ component of 
+$\vec{x_2}$ is $\cdot 6.1 \cdot sin(-52\degree)$. Therefore:
+
+\begin{equation}
+	\vec{x_2} = 6.1 \cdot \m{cos(-52\degree) \\ sin(-52\degree)} = \m{3.75553499949 \\ -4.806865597}
+\end{equation}
+
+The third movement is 89 degrees east of north, which is a 1 degree angle from 
+the positive $x$ axis. Therefore:
+
+\begin{equation}
+	\vec{x_3} = 4.0 \cdot \m{cos(1\degree) \\ sin(1\degree)} = \m{3.99939078063 \\ 0.06980962574}
+\end{equation}
+
+The fourth movement is 59 degrees from the positive $x$ axis. Therefore:
+
+\begin{equation}
+	\vec{x_4} = 6.5 \cdot \m{cos(59\degree) \\ sin(59\degree)} = \m{3.34774748692 \\ 5.57158745456}
+\end{equation}
+
+The combining these movements into the total displacement vector $\vec{x}$:
+
+\begin{equation}
+	\vec{x} = \sum^{4}_{i=1} \vec{x_i} = \m{11.102673267 \\ 2.0345314833}
+\end{equation}
+
+Therefore:
+
+\begin{equation}
+	\text{distance moved} = \sqrt{\vec{x} \cdot \vec{x}} \approx 11.2875
+\end{equation}
+
+\begin{problem}[2.14]
+
+\end{problem}
+
+\end{document}

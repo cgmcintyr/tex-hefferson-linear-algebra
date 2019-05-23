@@ -1,0 +1,286 @@
+% Document for my solutions to Hefferson's Linear Algebra Chapter 1.I.2
+\documentclass[12pt]{article}
+
+% --------------------------------------------------------------------------- %
+% Packages                                                                    %
+% --------------------------------------------------------------------------- %
+
+% Customize page layout.
+\usepackage[hmargin=0.75in, vmargin=1in]{geometry}
+
+% Use T1 font encoding (see SE answer https://tex.stackexchange.com/a/677).
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% Adds optional arg to enumerate to determine how counter is printed.
+\usepackage{enumitem}
+
+% Enable creating framed/bordered environments.
+\usepackage{framed}
+
+% Cutomize page headers
+\usepackage{fancyhdr}
+
+% Adds \pageref{LastPage} to reference last page of document.
+\usepackage{lastpage}
+
+% Loads amsmath and some very useful complements (pmatrix*)
+\usepackage{mathtools}
+\usepackage{amssymb, amsthm}
+
+% Systems of linear equations
+\usepackage{systeme}
+
+% Provides conditionals
+\usepackage{ifthen}
+
+% --------------------------------------------------------------------------- %
+% Configuration                                                               %
+% --------------------------------------------------------------------------- %
+
+% Reduce spacings/indents
+\setlength{\topskip}{0mm}
+\setlength{\parskip}{1ex}
+\setlength{\parindent}{0mm}
+
+% enumitem - disable vertical seperators in lists
+%\setlist{nosep}
+
+% fancyhdr - use fancy headers to add book's subsection and section title.
+\pagestyle{fancy}
+\lhead{{\bf II.1. Vectors in Space}}
+\rhead{Chapter One: Linear Systems}
+\setlength{\headheight}{16pt}
+
+% fancyhdr, lastpage - set page footer to include numbering out of last page.
+\cfoot{Page \thepage\ of \pageref{LastPage}}
+
+% --------------------------------------------------------------------------- %
+% Macros/Environments                                                         %
+% --------------------------------------------------------------------------- %
+
+\newenvironment{problem}[1][default]{
+  \begin{framed}\begin{minipage}{0.97\textwidth}
+  \setlength{\parskip}{4mm}
+  {\bf Problem #1}
+}{\end{minipage}\end{framed}}
+
+\newenvironment{abc}{\begin{enumerate}[label={\bf(\alph*)}]}{\end{enumerate}}
+
+% Create matrix
+% Usage: \m{a&b&c\\x&y&z} or \m[rr:r]{a&b&c\\x&y&z}
+\newcommand\m[2][]{
+	\ifthenelse{\equal {#1} {}}
+		% if
+		{\begin{pmatrix*}[r]#2\end{pmatrix*}}
+		% else
+		{\left(\begin{array}{#1}#2\end{array}\right)}
+}
+
+\newcommand\resetequation[1][1]{\setcounter{equation}{#1 - 1}}
+
+
+% --------------------------------------------------------------------------- %
+% Content                                                                     %
+% --------------------------------------------------------------------------- %
+
+\begin{document}
+
+
+\begin{problem}[1.1]
+	Find the canonical name for each vector.
+\end{problem}
+
+\begin{abc}
+\item The vector from $ \m{2 \\ 1} $ to $ \m{ 4 \\ 2} $ in $\mathbb{R}^2$ is $ \m{4 \\ 2} - \m{ 2 \\ 1} = \m{2 \\ 1}$.
+\item The vector from $ \m{3 \\ 3} $ to $ \m{ 2 \\ 5} $ in $\mathbb{R}^2$ is $ \m{2 \\ 5} - \m{ 3 \\ 3} = \m{-1 \\ 2}$.
+\item The vector from $ \m{1 \\ 0 \\ 6} $ to $ \m{ 5 \\ 0 \\ 3} $ in $\mathbb{R}^3$ is $ \m{1 \\ 0 \\ 6} - \m{ 5 \\ 0 \\ 3} = \m{-4 \\ 0 \\ 3}$.
+\item The vector from $ \m{6 \\ 8 \\ 8} $ to $ \m{ 6 \\ 8 \\ 8} $ in $\mathbb{R}^3$ is $ \m{0 \\ 0 \\ 0} $
+\end{abc}
+
+
+\begin{problem}[1.2]
+	Decide if the two vectors are equal.
+\end{problem}
+
+\begin{abc}
+\item{
+	The vector $\vec{a}$ from $ \m{5 \\ 3} $ to $ \m{ 6 \\ 2} $ and the vector $\vec{b}$ from $ \m{1 \\ -2} $ to $ \m{ 1 \\ 1} $
+
+	\begin{equation*}
+	\begin{aligned}
+		\vec{a} &= \m{6 \\ 2} - \m{5 \\ 3} = \m{6 - 5 \\ 2 - 3} = \m{1 \\ -1} \\
+		\vec{b} &= \m{1 \\ 1} - \m{1 \\ -2} = \m{1 - 1 \\ 1 + 2} = \m{0 \\ 3} \\
+	\end{aligned}
+	\end{equation*}
+
+	$ \therefore \vec{a} \neq \vec{b} $.
+}
+\item{
+	The vector $\vec{a}$ from $ \m{2 \\ 1 \\ 1} $ to $ \m{3 \\ 0 \\ 4} $ and the vector $\vec{b}$ from $ \m{5 \\ 1 \\ 4} $ to $ \m{6 \\ 0 \\ 7} $
+
+	\begin{equation*}
+	\begin{aligned}
+		\vec{a} &= \m{3 \\ 0 \\ 4} - \m{2 \\ 1 \\ 1} = \m{3 - 2 \\ 0 - 1 \\ 4 - 1} = \m{1 \\ -1 \\ 3} \\
+		\vec{b} &= \m{6 \\ 0 \\ 7} - \m{5 \\ 1 \\ 4} = \m{6 - 5 \\ 0 - 1 \\ 7 - 4} = \m{1 \\ -1 \\ 3} \\
+	\end{aligned}
+	\end{equation*}
+
+	$ \therefore \vec{a} = \vec{b} $.
+}
+\end{abc}
+
+
+\begin{problem}[1.3]
+	Does the point $\m{1 \\ 0 \\ 2 \\ 1}$ lie on the line through $\m{-2 \\ 1 \\ 1 \\ 0}$ and $\m{5 \\ 10 \\ -1 \\ 4}$?
+\end{problem}
+\resetequation
+
+First find $\vec{a}$ which describes the displacement vector from $\m{-2 \\ 1 \\ 1 \\ 0}$ to $\m{5 \\ 10 \\ -1 \\ 4}$:
+
+\begin{equation}
+	\vec{a} = \m{5 \\ 10 \\ -1 \\ 4} - \m{-2 \\ 1 \\ 1 \\ 0} = \m{7 \\ 9 \\ -2 \\ 4}
+\end{equation}
+
+$\vec{a}$ describes the direction of the line, so the solution set for the line is:
+
+\begin{equation}
+	\{ \m{-2 \\ 1 \\ 1 \\ 0} + \m{7 \\ 9 \\ -2 \\ 4} x \mid x \in \mathbb{R} \}
+\end{equation}
+
+The displacement vector from $\m{-2 \\ 1 \\ 1 \\ 0}$ to $\m{1 \\ 0 \\ 2 \\ 1}$ is:
+
+\begin{equation}
+	\vec{b} = \m{1 \\ 0 \\ 2 \\ 1} - \m{-2 \\ 1 \\ 1 \\ 0} = \m{3 \\ -1 \\ 1 \\ 1}
+\end{equation}
+
+There is no real scalar multiplier that would transform $\m{7 \\ 9 \\ -2 \\ 4}$ to $\vec{b}$.
+
+$\therefore$ the given point does not lie on the given line.
+
+\begin{problem}[1.4]
+	\\
+	(a) Describe the plane through $\m{1 \\ 1 \\ 5 \\ -1}$, $\m{2 \\ 2 \\ 2 \\ 0}$ and $\m{3 \\ 1 \\ 0 \\ 4}$ \\
+	(b) Does this plane pass through the origin?
+\end{problem}[1.4]
+
+\begin{abc}
+\item{
+	The first directional vector $\vec{t}$ of the plane is:
+
+	\begin{equation}
+		\vec{s} = \m{2 \\ 2 \\ 2 \\ 0} - \m{1 \\ 1 \\ 5 \\ -1} = \m{1 \\ 1 \\ -3 \\ 1}
+	\end{equation}
+
+	The second directional vector $\vec{s}$ of the plane is:
+
+	\begin{equation}
+		\vec{t} = \m{3 \\ 1 \\ 0 \\ 4} - \m{1 \\ 1 \\ 5 \\ -1} = \m{2 \\ 0 \\ -5 \\ 5}
+	\end{equation}
+
+	Using $\vec{s}$ and $\vec{t}$ we can describe the plane using vectors:
+
+	\begin{equation}
+		\{ \m{1 \\ 1 \\ 5 \\ -1} + \m{1 \\ 1 \\ -3 \\ 1} s + \m{2 \\ 0 \\ -5 \\ 5} t \mid s, t \in \mathbb{R} \}
+	\end{equation}
+}
+
+\item{
+	To figure out if this plane passes through the origin we need to solve:
+
+	\begin{equation}
+	\begin{aligned}
+		\m{1 \\ 1 \\ 5 \\ -1} + \m{1 \\ 1 \\ -3 \\ 1} s + \m{2 \\ 0 \\ -5 \\ 5} t &= \m{0 \\ 0 \\ 0 \\ 0} \\
+		\equiv \m{1 \\ 1 \\ -3 \\ 1} s + \m{2 \\ 0 \\ -5 \\ 5} t &= \m{-1 \\ -1 \\ -5 \\ 1}
+	\end{aligned}
+	\end{equation}
+
+	Convert to reduced row echelon matrix form:
+	\begin{equation}
+	\begin{aligned}
+		\m[rr|r]{1 & 2 & -1 \\ 1 & 0 & -1 \\ -3 & -5 & -5 \\ 1 & 5 & 1}
+		&\xrightarrow{r_1 - r_2}
+		\m[rr|r]{0 & 2 & 0 \\ 1 & 0 & -1 \\ -3 & -5 & -5 \\ 1 & 5 & 1}
+		\\
+		&\xrightarrow{r_3 + 3r_2}
+		\m[rr|r]{0 & 2 & 0 \\ 1 & 0 & -1 \\ 0 & -5 & -8 \\ 1 & 5 & 1}
+		\\
+		&\xrightarrow{r_3 + \frac{5}{2}r_1}
+		\m[rr|r]{0 & 2 & 0 \\ 1 & 0 & -1 \\ 0 & 0 & -8 \\ 1 & 5 & 1}
+	\end{aligned}
+	\end{equation}
+
+	We can stop here, as $r_3$ contains a contradiction, we know this system has no solutions. Therefore the plane does not pass through the origin.
+}
+\end{abc}
+
+\begin{problem}[1.5]
+	Give a vector description of each of the following.
+\end{problem}
+
+\begin{abc}
+\item{
+	The plane subset of $\mathbb{R}^3$ with equation $x - 2y + z = 4$.
+
+	Here $x$ is the leading variable, and $(y, z)$ are the free variables.
+
+	Parametizing $x$ we get $x = 4 + 2y - z$.
+
+	In vector form:
+
+	\begin{equation*}
+		\{ \m{4 \\ 0 \\ 0} + \m{2 \\ 1 \\ 0} y + \m{-1 \\ 0 \\ 1} z \mid y, z \in \mathbb{R} \}
+	\end{equation*}
+}
+
+\item{
+	The plane in $\mathbb{R}^3$ with equation $2x + y + 4z = -1$.
+
+	Here $x$ is the leading variable, and $(y, z)$ are the free variables.
+
+	Parametizing $x$ we get $x = -\frac{1}{2} - \frac{1}{2}y - 2z$.
+
+	In vector form:
+
+	\begin{equation*}
+		\{ \m{\frac{1}{2} \\ 0 \\ 0} + \m{-\frac{1}{2} \\ 1 \\ 0} y + \m{-2 \\ 0 \\ 1} z \mid y, z \in \mathbb{R} \}
+	\end{equation*}
+}
+
+\item{
+	The hyperplane in $\mathbb{R}^4$ with equation $x + y + z + w = 10$.
+
+	Here $x$ is the leading variable, and $(y, z, w)$ are the free variables.
+
+	Parametizing $x$ we get $x = 10 - y - z - w$.
+
+	In vector form:
+
+	\begin{equation*}
+		\{ \m{10 \\ 0 \\ 0 \\ 0} + \m{-1 \\ 1 \\ 0 \\ 0} y + \m{-1 \\ 0 \\ 1 \\ 0} y + \m{-1 \\ 0 \\ 0 \\ 1} w \mid y, z, w \in \mathbb{R} \}
+	\end{equation*}
+}
+\end{abc}
+
+\begin{problem}[1.6]
+	Describe the plane that contains this point and this line:
+	\begin{equation*}
+		\m{2 \\ 0 \\ 3} \qquad \{ \m{-1 \\ 0 \\ -4} + \m{1 \\ 1 \\ 2}t \mid t \in \mathbb{R} \}
+	\end{equation*}
+\end{problem}
+
+When $t = 0$, our solution set produces the vector $\m{-1 \\ 0 \\ -4}$.
+
+The direction vector $\vec{s}$ from this point to the point we wish to include is:
+
+\begin{equation}
+	\vec{s} = \m{2 \\ 0 \\ 3} - \m{-1 \\ 0 \\ -4} = \m{3 \\ 0 \\ 7}
+\end{equation}
+
+Adding this as a direction the original line:
+
+\begin{equation}
+	\{ \m{-1 \\ 0 \\ -4} + \m{3 \\ 0 \\ 7} s + \m{1 \\ 1 \\ 2} t \mid s, t \in \mathbb{R} \}
+\end{equation}
+
+\end{document}
