@@ -1,0 +1,204 @@
+% Document for my solutions to Hefferson's Linear Algebra Chapter 1.I.2
+\documentclass[12pt]{article}
+
+% --------------------------------------------------------------------------- %
+% Packages                                                                    %
+% --------------------------------------------------------------------------- %
+
+% Customize page layout.
+\usepackage[hmargin=0.75in, vmargin=1in]{geometry}
+
+% Use T1 font encoding (see SE answer https://tex.stackexchange.com/a/677).
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% Adds optional arg to enumerate to determine how counter is printed.
+\usepackage{enumitem}
+
+% Enable creating framed/bordered environments.
+\usepackage{framed}
+
+% Cutomize page headers
+\usepackage{fancyhdr}
+
+% Adds \pageref{LastPage} to reference last page of document.
+\usepackage{lastpage}
+
+% Loads amsmath and some very useful complements (pmatrix*)
+\usepackage{mathtools}
+\usepackage{amssymb, amsthm}
+
+% Systems of linear equations
+\usepackage{systeme}
+
+% Provides conditionals
+\usepackage{ifthen}
+
+% --------------------------------------------------------------------------- %
+% Configuration                                                               %
+% --------------------------------------------------------------------------- %
+
+% Reduce spacings/indents
+\setlength{\topskip}{0mm}
+\setlength{\parskip}{1ex}
+\setlength{\parindent}{0mm}
+
+% enumitem - disable vertical seperators in lists
+%\setlist{nosep}
+
+% fancyhdr - use fancy headers to add book's subsection and section title.
+\pagestyle{fancy}
+\lhead{{\bf II.2. Subspaces and Spanning Sets}}
+\rhead{Chapter Two: Vector Spaces}
+\setlength{\headheight}{16pt}
+
+% fancyhdr, lastpage - set page footer to include numbering out of last page.
+\cfoot{Page \thepage\ of \pageref{LastPage}}
+
+% --------------------------------------------------------------------------- %
+% Macros/Environments                                                         %
+% --------------------------------------------------------------------------- %
+
+\newenvironment{problem}[1][default]{
+  \begin{framed}\begin{minipage}{0.97\textwidth}
+  \setlength{\parskip}{4mm}
+  {\bf Problem #1}
+}{\end{minipage}\end{framed}}
+
+\newenvironment{abc}{\begin{enumerate}[label={\bf(\alph*)}]}{\end{enumerate}}
+
+% Create matrix
+% Usage: \m{a&b&c\\x&y&z} or \m[rr:r]{a&b&c\\x&y&z}
+\newcommand\m[2][]{
+	\ifthenelse{\equal {#1} {}}
+		% if
+		{\begin{pmatrix*}[r]#2\end{pmatrix*}}
+		% else
+		{\left(\begin{array}{#1}#2\end{array}\right)}
+}
+
+\newcommand\resetequation[1][1]{\setcounter{equation}{#1 - 1}}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+
+% --------------------------------------------------------------------------- %
+% Content                                                                     %
+% --------------------------------------------------------------------------- %
+
+\begin{document}
+
+\begin{problem}[1.20]
+	Which of these subsets of the vector space of $2 \times 2$ matrices are 
+	subspaces dunder the inherited operations? For each one that is a 
+	subspace, parametrize its desciprtion. For each that is not, ive a 
+	condition that fails.
+\end{problem}
+
+\begin{abc}
+\begin{item}
+	Let $S = \{ \m{a & 0 \\ 0 & b} \mid a, b \in \mathbb{R} \}$.
+
+	First we parametrize $S$:
+
+	\begin{equation}
+		\label{eqn:parametrized_S}
+		S = \{ a \m{1 & 0 \\ 0 & 0} + b \m{0 & 0 \\ 0 & 1} \mid a, b \in \mathbb{R} \}
+	\end{equation}
+
+	Which shows $S$ can be described as a linear combination of $2 \times 2$ matrices.
+
+	First we show $\vec{0} \in S$:
+
+	\begin{equation}
+	\begin{aligned}
+		a &= 0 \\
+		b &= 0 \\
+		0 & \m{1 & 0 \\ 0 & 0} + 0 \m{0 & 0 \\ 0 & 1} = \m{0 & 0 \\ 0 & 0} = \vec{0}
+	\end{aligned}
+	\end{equation}
+
+	Then we show $S$ is closed under scalar multiplication:
+
+	\begin{equation}
+	\begin{aligned}
+		\vec{s} &= a \m{1 & 0 \\ 0 & 0} + b \m{0 & 0 \\ 0 & 1} \\
+		r \vec{s} &= r \left( a \m{1 & 0 \\ 0 & 0} + b \m{0 & 0 \\ 0 & 1} \right) \\
+		          &= r a \m{1 & 0 \\ 0 & 0} + r b \m{0 & 0 \\ 0 & 1} \\
+		ra, rb &\in \mathbb{R} \\
+		\therefore r \vec{s} &\in S
+	\end{aligned}
+	\end{equation}
+
+	Finally we show $S$ is closed under addition:
+
+	\begin{equation}
+	\begin{aligned}
+		\vec{s_1} &= a_1 \m{1 & 0 \\ 0 & 0} + b_1 \m{0 & 0 \\ 0 & 1} \\
+		\vec{s_2} &= a_2 \m{1 & 0 \\ 0 & 0} + b_2 \m{0 & 0 \\ 0 & 1} \\
+		\vec {s_1} + \vec{s_2} &= a_1 \m{1 & 0 \\ 0 & 0} + a_2 \m{1 & 0 \\ 0 & 0} + b_1 \m{0 & 0 \\ 0 & 1} + b_2 \m{0 & 0 \\ 0 & 1} \\
+		                       &= (a_1 + a_2) \m{1 & 0 \\ 0 & 0} + (b_1 + b_2) \m{0 & 0 \\ 0 & 1} \\
+		a_1 + a_2, b_1 + b_2 &\in \mathbb{R} \\
+		\therefore \vec{s_1} + \vec{s_2} &\in S
+	\end{aligned}
+	\end{equation}
+
+	Therefore $S$ is a subspace.
+
+	Alternativley, using (\ref{eqn:parametrized_S}) and the definition of a spanning set
+
+	\begin{equation}
+	\begin{aligned}
+		span(V) = \{ c_1 \vec{v_1} + \ldots c_n \vec{v_n} \mid c_1, \ldots, c_n \in \mathbb{R} \: \text{and} \: \vec{v_1}, \ldots, \vec{v_n} \in V \}
+	\end{aligned}
+	\end{equation}
+
+	We can see that $S = span\left( \left\{ \m{1 & 0 \\ 0 & 0}, \m{0 & 0 \\ 0 & 1} \right\} \right)$,
+	and as all spanning sets are subspaces, this is another proof $S$ is a subspace.
+\end{item}
+
+\begin{item}
+	\resetequation
+	Let $S = \{ \m{a & 0 \\ 0 & b} \mid a + b = 0 \}$.
+
+	Paramaterizing $S$:
+	
+	\begin{equation}
+		S = \{ \m{-b & 0 \\ 0 & b} \mid b \in \mathbb{R} \} = \{ b \m{-1 & 0 \\ 0 & 1} \mid b \in \mathbb{R} \}
+	\end{equation}
+
+	Showing $S = span\left( \left\{ \m{-1 & 0 \\ 0 & 1} \right\} \right)$, and therefore $S$ is a subspace.
+\end{item}
+
+\begin{item}
+	\resetequation
+	Let $S = \{ \m{a & 0 \\ 0 & b} \mid a + b = 5 \}$.
+
+	By paramaterizing $S$:
+
+	\begin{equation}
+		S = \{ \m{ -b + 5 & 0 \\ 0 & b} \mid b \in \mathbb{R} \}
+	\end{equation}
+	
+	We can see $S$ is not a vector space as $ \vec{0} \notin S$, which
+	means $S$ is not closed under scalar multiplcation.
+\end{item}
+
+\begin{item}
+	\resetequation
+	Let $S = \{ \m{a & c \\ 0 & b} \mid a + b = 0, c \in \mathbb{R} \}$.
+
+	By paramaterizing $S$:
+
+	\begin{equation}
+	\begin{aligned}
+		S &= \{ \m{ -b & c \\ 0 & b} \mid b, c \in \mathbb{R} \} \\
+		  &= \{ b \m{ -1 & 0 \\ 0 & 1} + c \m { 0 & 1 \\ 0 & 0 } \mid b, c \in \mathbb{R} \}
+	\end{aligned}
+	\end{equation}
+	
+	Showing $S = span\left( \left\{ \m{-1 & 0 \\ 0 & 1}, \m{0 & 1 \\ 0 & 0} \right\} \right)$, and therefore $S$ is a subspace.
+\end{item}
+\end{abc}
+
+
+\end{document}
